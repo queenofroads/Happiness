@@ -1,12 +1,9 @@
-// PostgreSQL version - Use this for Vercel/Railway/Supabase deployment
-// To use: rename this to schema.prisma (backup the sqlite version first)
-
 generator client {
   provider = "prisma-client-js"
 }
 
 datasource db {
-  provider = "postgresql"
+  provider = "sqlite"
   url      = env("DATABASE_URL")
 }
 
