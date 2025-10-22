@@ -1,0 +1,95 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id                 String         @id @default(cuid())
+  email              String         @unique
+  name               String?
+  image              String?
+  office_city        String?
+  start_date         DateTime?
+  preferred_language String?
+  interests          String
+  is_admin           Boolean        @default(false)
+  created_at         DateTime       @default(now())
+  rsvps              EventRsvp[]
+  points             PointsLedger[]
+  userQuests         UserQuest[]
+}
+
+model Event {
+  id               String        @id @default(cuid())
+  title            String
+  start            DateTime
+  end              DateTime
+  venue            String?
+  address          String?
+  category         String?
+  external_link    String?
+  capacity         Int?
+  points_on_rsvp   Int           @default(5)
+  points_on_attend Int           @default(25)
+  active           Boolean       @default(true)
+  rsvps            EventRsvp[]
+}
+
+model EventRsvp {
+  id         String   @id @default(cuid())
+  event      Event    @relation(fields: [eventId], references: [id])
+  eventId    String
+  user       User     @relation(fields: [userId], references: [id])
+  userId     String
+  status     String   @default("going")
+  created_at DateTime @default(now())
+  @@unique([eventId, userId], name: "eventId_userId")
+}
+
+model Quest {
+  id                 String      @id @default(cuid())
+  title              String
+  description        String?
+  category           String?
+  helpful_links      String
+  points_on_complete Int         @default(50)
+  proof_type         String
+  active             Boolean     @default(true)
+  userQuests         UserQuest[]
+}
+
+model UserQuest {
+  id           String   @id @default(cuid())
+  user         User     @relation(fields: [userId], references: [id])
+  userId       String
+  quest        Quest    @relation(fields: [questId], references: [id])
+  questId      String
+  status       String   @default("not_started")
+  evidence_url String?
+  completed_at DateTime?
+  @@unique([userId, questId])
+}
+
+model PointsLedger {
+  id         String   @id @default(cuid())
+  user       User     @relation(fields: [userId], references: [id])
+  userId     String
+  source     String
+  sourceId   String?
+  points     Int
+  created_at DateTime @default(now())
+  @@index([userId])
+}
+
+model Video {
+  id          String   @id @default(cuid())
+  title       String
+  url         String
+  tags        String
+  description String?
+  created_at  DateTime @default(now())
+}
