@@ -2,6 +2,26 @@
 
 Complete your relocation journey in Finland with gamified quests and events.
 
+## 💻 Run Locally (Fastest!)
+
+**One command setup:**
+
+```bash
+./local-setup.sh
+```
+
+Then start the dev server:
+
+```bash
+npm run dev
+```
+
+Visit **http://localhost:3000** and login with:
+- **User**: demo@demo.com
+- **Admin**: admin@demo.com
+
+---
+
 ## 🚀 Deploy to Vercel
 
 ### Quick Deploy (5 minutes)
