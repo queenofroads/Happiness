@@ -6,15 +6,10 @@ export const authOptions: AuthOptions = {
   providers: [
     CredentialsProvider({
       name: 'Email',
-      credentials: {
-        email: { label: 'Email', type: 'email' },
-      },
+      credentials: { email: { label: 'Email', type: 'email' } },
       async authorize(credentials) {
-        if (!credentials?.email) {
-          return null
-        }
+        if (!credentials?.email) return null
 
-        // Find or create user (dev-only behavior)
         let user = await prisma.user.findUnique({
           where: { email: credentials.email },
         })
@@ -24,7 +19,6 @@ export const authOptions: AuthOptions = {
             data: {
               email: credentials.email,
               name: credentials.email.split('@')[0],
-              interests: '',
             },
           })
         }
@@ -33,7 +27,7 @@ export const authOptions: AuthOptions = {
           id: user.id,
           email: user.email,
           name: user.name,
-          isAdmin: user.is_admin,
+          isAdmin: user.isAdmin,
         }
       },
     }),
@@ -54,10 +48,6 @@ export const authOptions: AuthOptions = {
       return session
     },
   },
-  pages: {
-    signIn: '/login',
-  },
-  session: {
-    strategy: 'jwt',
-  },
+  pages: { signIn: '/login' },
+  session: { strategy: 'jwt' },
 }

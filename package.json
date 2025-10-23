@@ -1,23 +1,19 @@
 {
-  "name": "relocation-quest-mvp",
-  "version": "0.1.0",
+  "name": "finland-quest",
+  "version": "1.0.0",
   "private": true,
   "scripts": {
-    "dev": "NEXT_TELEMETRY_DISABLED=1 next dev -p 3000",
-    "build": "next build",
-    "start": "next start -p 3000",
-    "typecheck": "tsc --noEmit",
-    "db:push": "prisma db push",
-    "seed": "tsx scripts/seed.ts",
-    "test": "vitest run"
+    "dev": "next dev",
+    "build": "prisma generate && next build",
+    "start": "next start",
+    "postinstall": "prisma generate"
   },
   "dependencies": {
     "next": "14.2.3",
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
     "next-auth": "^4.24.7",
-    "@prisma/client": "^5.14.0",
-    "ics": "^3.7.2"
+    "@prisma/client": "^5.14.0"
   },
   "devDependencies": {
     "@types/node": "^20.12.12",
@@ -28,10 +24,6 @@
     "postcss": "^8.4.38",
     "autoprefixer": "^10.4.19",
     "prisma": "^5.14.0",
-    "tsx": "^4.11.0",
-    "vitest": "^1.6.0"
-  },
-  "engines": {
-    "node": ">=20.0.0"
+    "tsx": "^4.11.0"
   }
 }

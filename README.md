@@ -1,166 +1,63 @@
-# Relocation Quest MVP
+# Finland Quest
 
-A gamified onboarding platform to help new hires complete essential relocation tasks in Finland. Built with Next.js 14, Prisma, and SQLite for rapid development, with easy migration path to Postgres/Supabase.
+Complete your relocation journey in Finland with gamified quests and events.
 
-## Features
+## 🚀 Deploy to Vercel
 
-- **Quest System**: Complete relocation tasks (DVV, Kela, HSL, etc.) and earn points
-- **Events**: RSVP to onboarding events and download calendar invites
-- **Leaderboard**: Track progress and compete with colleagues
-- **Learning Resources**: Access helpful videos and materials
-- **Admin Dashboard**: Manage events, quests, and mark attendance
-- **Idempotent Points**: Ensures users don't get duplicate points for the same action
+### Quick Deploy (5 minutes)
 
-## Tech Stack
+1. **Go to [vercel.com](https://vercel.com)** and sign in with GitHub
 
-- **Frontend**: Next.js 14 (App Router) + TypeScript + Tailwind CSS
-- **Auth**: NextAuth with Credentials provider (dev-only)
-- **ORM**: Prisma
-- **Database**: SQLite (dev) → Postgres/Supabase (production)
-- **Tests**: Vitest for unit tests
-- **Runtime**: Node 20 LTS
+2. **Import this repository**
+   - Click "Add New" → "Project"
+   - Select this repository
+   - Branch: `claude/finland-quest-fresh-011CUNCo4VSa4QNinXDWgjtL`
 
-## Quick Start
+3. **Add Postgres Database** (BEFORE deploying!)
+   - Click "Storage" tab
+   - Click "Create Database" → "Postgres"
+   - Click "Create"
 
-### Prerequisites
+4. **Add Environment Variable**
+   - Go to "Settings" → "Environment Variables"
+   - Add: `NEXTAUTH_SECRET` = `your-random-secret-key`
 
-- Node.js 20.x or higher
-- pnpm (recommended) or npm
+5. **Deploy!**
+   - Click "Deploy"
+   - Wait ~2 minutes
 
-### Installation
+6. **Seed Database** (one-time)
+   ```bash
+   npm install -g vercel
+   vercel login
+   vercel link
+   vercel exec -- npx tsx scripts/seed.ts
+   ```
 
-**Option 1: Automated Setup (Recommended)**
+7. **Visit your app!**
+   - Login with: `demo@demo.com` or `admin@demo.com`
 
-```bash
-# Run the setup script
-./setup.sh
-```
+## ✨ Features
 
-**Option 2: Manual Setup**
+- **Quest System**: Complete Finland relocation tasks (DVV, Kela, HSL, etc.)
+- **Events**: RSVP to onboarding events
+- **Points & Leaderboard**: Track progress
+- **Admin Dashboard**: Manage events and quests
 
-```bash
-# Install dependencies
-npm install
+## 🛠️ Tech Stack
 
-# Generate Prisma client
-npx prisma generate
+- Next.js 14 + TypeScript
+- PostgreSQL + Prisma
+- NextAuth
+- Tailwind CSS
 
-# Set up the database
-npm run db:push
+## 📝 Demo Accounts
 
-# Seed with Finland-specific data
-npm run seed
+- **User**: demo@demo.com
+- **Admin**: admin@demo.com
 
-# Start development server
-npm run dev
-```
+No password needed!
 
-Open [http://localhost:3000](http://localhost:3000) in your browser.
+---
 
-### Demo Accounts
-
-- **Regular User**: demo@demo.com
-- **Admin User**: admin@demo.com
-
-Just enter the email on the login page (no password needed in dev mode).
-
-## Available Scripts
-
-```bash
-npm run dev          # Start development server
-npm run build        # Build for production
-npm run start        # Start production server
-npm run typecheck    # Run TypeScript type checking
-npm run db:push      # Push Prisma schema to database
-npm run seed         # Seed database with test data
-npm run test         # Run Vitest tests
-```
-
-## Project Structure
-
-```
-app/
-├── (public)/login/          # Public login page
-├── (protected)/             # Protected user pages
-│   ├── dashboard/
-│   ├── events/
-│   ├── quests/
-│   ├── leaderboard/
-│   └── learning/
-├── (admin)/admin/           # Admin-only pages
-│   ├── events/
-│   ├── quests/
-│   └── attendance/
-└── api/                     # API routes
-    ├── rsvp/
-    ├── attendance/
-    ├── quests/
-    ├── leaderboard/
-    ├── ics/
-    └── admin/
-
-components/                  # Reusable UI components
-lib/                        # Utilities and helpers
-prisma/                     # Database schema
-scripts/                    # Database seeding
-tests/                      # Vitest tests
-```
-
-## Database Schema
-
-- **User**: User accounts with office location and preferences
-- **Event**: Onboarding events with RSVP and attendance tracking
-- **Quest**: Relocation tasks with different proof types
-- **PointsLedger**: Idempotent points tracking
-- **Video**: Learning resources
-
-## Switching to Postgres/Supabase
-
-The Prisma schema is compatible with PostgreSQL. To switch:
-
-1. Update `DATABASE_URL` in `.env.local` to your Postgres connection string
-2. Change `provider = "sqlite"` to `provider = "postgresql"` in `prisma/schema.prisma`
-3. Run `pnpm db:push` or `prisma migrate dev`
-4. Run `pnpm seed` to populate data
-
-## Testing
-
-Run unit tests to verify points idempotency:
-
-```bash
-pnpm test
-```
-
-## Extensibility
-
-### Future Enhancements Ready
-
-- **QR Code Attendance**: Placeholder components ready in `/api/attendance/qr`
-- **Internationalization**: Structure ready for `i18n` with en.json and fi.json
-- **Database Migration**: Schema compatible with Postgres/Supabase
-
-## Notes
-
-- Type-checking runs separately (`pnpm typecheck`) to keep dev server fast
-- Uses server components by default for better performance
-- Tailwind-only design system (no heavy UI libraries)
-- All points are awarded idempotently to prevent duplicates
-
-## Acceptance Criteria
-
-✅ Login as demo@demo.com and see dashboard with points
-✅ RSVP to events (points awarded once)
-✅ Admin can mark attendance (points awarded once)
-✅ Complete quests (checkbox, URL, admin verify)
-✅ Leaderboard shows correct rankings
-✅ Download ICS calendar files
-✅ Watch embedded learning videos
-✅ Admin CRUD for events and quests
-
-## License
-
-Prototype for demonstration purposes. All trademarks belong to their owners.
-
-## Support
-
-For issues or questions, please contact your team administrator.
+**Ready to deploy?** Head to [vercel.com](https://vercel.com) now! 🚀
